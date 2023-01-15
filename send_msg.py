@@ -8,11 +8,14 @@ You shall follow all the terms of the MIT License (./LICENSE).
 # ----- Requires: webdriver-manager == 3.8.5 -----
 
 from time import sleep
+from getpass import getpass
+
 
 # Import all selenium and webdriver tools
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -20,9 +23,10 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from lib import login
 
+
 microsoft_authentication_link = "https://go.microsoft.com/fwlink/p/?linkid=873020"
 email = input("Email: ")
-password = input("Password: ")
+password = getpass("Password: ")
 message = input("Please enter spam message: ")
 count = int(input("How many times: "))
 user_nr = input("Which user (nr. 1 from top): ")
@@ -31,9 +35,13 @@ user_nr = input("Which user (nr. 1 from top): ")
 
 # driver.get(microsoft_authentication_link)
 
-driver = login.login(email, password, microsoft_authentication_link)
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--start-maximized")
 
-sleep(6)
+driver = login.login(email, password, microsoft_authentication_link, chrome_options)
+
+sleep(8)
 
 click_chat = driver.find_element_by_css_selector(".icons-chat")
 click_chat.click()
@@ -52,7 +60,8 @@ for i in range(count):
     driver.execute_script(f'document.querySelector(".ck-placeholder").innerHTML = "{message}";')
     send = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div/div[6]/div/div/div[2]/div/div[4]/div[2]/div[3]/button")
     send.click()
-    sleep(0.5)
+    print(f"Spammed user with {message}")
+    sleep(0.3)
 
 print("Done with the spam")
 
