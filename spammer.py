@@ -30,7 +30,8 @@ microsoft_authentication_link = "https://go.microsoft.com/fwlink/p/?linkid=87302
 email = input(f"{time_now.time_now()} Email: ")
 password = getpass(f"{time_now.time_now()} Password: ")
 message = input(f"{time_now.time_now()} Please enter spam message: ")
-count = int(input(f"{time_now.time_now()} How many times: "))
+count = int(input(f"{time_now.time_now()} How many times to spam: "))
+between = int(input(f"{time_now.time_now()} How many seconds between every spam message: "))
 user_nr = input(f"{time_now.time_now()} Which user (nr. 1 from top): ")
 
 # Chrome Options
@@ -67,7 +68,7 @@ for i in range(count):
     send = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div/div[6]/div/div/div[2]/div/div[4]/div[2]/div[3]/button")
     send.click()
     print(f"{time_now.time_now()} Spammed {user} with {message}")
-    sleep(0.3)
+    sleep(between)
 
 print("Done with the spam")
 
