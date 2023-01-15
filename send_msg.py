@@ -23,6 +23,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from lib import login
 from lib import time_now
+from lib import start
 
 # Global Variables
 microsoft_authentication_link = "https://go.microsoft.com/fwlink/p/?linkid=873020"
