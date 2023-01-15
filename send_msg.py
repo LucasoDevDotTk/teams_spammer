@@ -43,7 +43,7 @@ sleep(2)
 click_user = driver.find_element_by_css_selector(f"div:nth-child({user_nr}) > .recipient-group-list-item .cle-title > .single-line-truncation")
 click_user.click()
 
-sleep(1)
+sleep(2)
 
 
 WebDriverWait(driver, 20).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe.embedded-electron-webview.embedded-page-content")))
@@ -53,7 +53,8 @@ for i in range(count):
     send = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div/div[6]/div/div/div[2]/div/div[4]/div[2]/div[3]/button")
     send.click()
     sleep(0.5)
-sleep(10)
+
+print("Done with the spam")
 
 
 driver.close()
