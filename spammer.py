@@ -70,7 +70,7 @@ for i in range(count):
     print(f"{time_now.time_now()} Spammed {user} with {message}")
     sleep(between)
 
-print("Done with the spam")
+print(f"{time_now.time_now()} Done with the spam")
 
 
 driver.close()
