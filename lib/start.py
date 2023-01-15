@@ -22,7 +22,7 @@ ________________________________________________________________________________
                                             INFO
                                 
                             BUILD           :  15JAN23
-                            VERSION         :  1.4.5
+                            VERSION         :  1.5.0
                             API             :  Selenium Python
                             LICENSE         :  MIT, see in ./LICENSE
                             AUTHORS         :  Copyright (c) 2023 LucasoDevDotTk (Lucas Nguyen)                                          
