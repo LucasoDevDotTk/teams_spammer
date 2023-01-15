@@ -22,45 +22,50 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from lib import login
+from lib import time_now
 
-
+# Global Variables
 microsoft_authentication_link = "https://go.microsoft.com/fwlink/p/?linkid=873020"
-email = input("Email: ")
-password = getpass("Password: ")
-message = input("Please enter spam message: ")
-count = int(input("How many times: "))
-user_nr = input("Which user (nr. 1 from top): ")
+email = input(f"{time_now.time_now()} Email: ")
+password = getpass(f"{time_now.time_now()} Password: ")
+message = input(f"{time_now.time_now()} Please enter spam message: ")
+count = int(input(f"{time_now.time_now()} How many times: "))
+user_nr = input(f"{time_now.time_now()} Which user (nr. 1 from top): ")
 
-# driver = webdriver.Chrome(ChromeDriverManager().install())
-
-# driver.get(microsoft_authentication_link)
-
+# Chrome Options
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--start-maximized")
+chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
+print(f"{time_now.time_now()} Logging in with {email}")
 
 driver = login.login(email, password, microsoft_authentication_link, chrome_options)
-
 sleep(8)
 
+# Going into chat
 click_chat = driver.find_element_by_css_selector(".icons-chat")
 click_chat.click()
-
 sleep(2)
 
+# Going into user
 click_user = driver.find_element_by_css_selector(f"div:nth-child({user_nr}) > .recipient-group-list-item .cle-title > .single-line-truncation")
 click_user.click()
 
+user = click_user.text
+print(f"{time_now.time_now()} User found: {user}")
+
 sleep(2)
 
-
+# Going into iframe of chat frame
 WebDriverWait(driver, 20).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe.embedded-electron-webview.embedded-page-content")))
 
+# Spamming
 for i in range(count):
     driver.execute_script(f'document.querySelector(".ck-placeholder").innerHTML = "{message}";')
     send = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div/div[6]/div/div/div[2]/div/div[4]/div[2]/div[3]/button")
     send.click()
-    print(f"Spammed user with {message}")
+    print(f"{time_now.time_now()} Spammed {user} with {message}")
     sleep(0.3)
 
 print("Done with the spam")
