@@ -67,7 +67,7 @@ for i in range(count):
     # message = f"{time_now.time_now()} {usr_message}"
     message = usr_message
     driver.execute_script(f'document.querySelector(".ck-placeholder").innerHTML = "{message}";')
-    sleep(0.2)
+    sleep(0.3)
     send = driver.find_element_by_xpath("/html/body/div[1]/div/div/div/div/div[6]/div/div/div[2]/div/div[4]/div[2]/div[3]/button")
     send.click()
     print(f"{time_now.time_now()} Spammed {user} with {message}")
